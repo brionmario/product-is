@@ -17,14 +17,11 @@
  */
 
 /// <reference types="cypress" />
-context('Basic Carbon console visit', () => {
 
-it('Validate visit carbon console successfully.', () => {
-      cy.visit('https://localhost:9853/carbon');
-      cy.wait(1000);
-      cy.get('input[id="txtUserName"]').type('admin');
-      cy.get('input[id="txtPassword"]').type('admin',{ log : false });
-      cy.get('input.button').click({ delay: 70 });
-      })
-  })
-
+/**
+ * @type {Cypress.PluginConfig}
+ */
+module.exports = (on, config) => {
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
+};
