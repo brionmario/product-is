@@ -5,7 +5,8 @@
     "author": "Brion Mario <info@brionmario.com>",
     "homepage": "https://github.com/wso2/product-is/tree/master/modules/cypress-base#readme",
     "license": "ISC",
-    "main": "src/index.ts",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/brionmario/product-is.git"
