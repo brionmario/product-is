@@ -30,6 +30,7 @@
     "dependencies": {
         "@types/chai": "^4.1.7",
         "@types/mocha": "^5.2.7",
+        "@types/node": "^14.10.1",
         "@wso2is-testing/cypress-base": "0.0.0",
         "cypress-mochawesome-reporter": "^1.0.2",
         "cypress-multi-reporters": "^1.4.0",

@@ -17,6 +17,9 @@
  *
  */
 
+/**
+ * Class containing Login Page DOM constants.
+ */
 export class LoginPageDomConstants {
 
     /**

@@ -19,6 +19,9 @@
 
 /// <reference types="cypress" />
 
+/**
+ * Class containing storage related utils.
+ */
 export class StorageUtils {
 
     /**
@@ -29,6 +32,9 @@ export class StorageUtils {
      */
     private constructor() { }
 
+    /**
+     * Clears the browser local storage.
+     */
     public static clearLocalStorage(): void {
         cy.clearLocalStorage();
     }

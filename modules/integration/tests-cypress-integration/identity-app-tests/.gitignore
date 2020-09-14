@@ -34,3 +34,11 @@ cypress/results/
 cypress/screenshots/
 cypress/videos/
 cypress/fixtures/test-data.json
+
+# project build folders & files
+target/
+npm/
+modules/*/dist
+
+# Misc
+*.factorypath

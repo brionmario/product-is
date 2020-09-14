@@ -1,3 +1,11 @@
 {
-    "extends": "../../tsconfig"
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "declaration": true
+    },
+    "extends": "../../tsconfig.json",
+    "typeRoots": [ "./types/*", "node_modules/@types" ],
+    "include": [ "src" ]
 }

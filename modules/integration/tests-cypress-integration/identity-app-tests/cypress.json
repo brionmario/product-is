@@ -1,18 +1,12 @@
 {
-    "fixturesFolder": "./fixtures",
-    "integrationFolder": "./integration",
+    "fixturesFolder": "cypress/fixtures",
+    "integrationFolder": "cypress/integration",
     "pageLoadTimeout": 300000,
-    "pluginsFile": "./plugins/index.js",
+    "pluginsFile": "cypress/plugins/index.js",
     "reporter": "cypress-mochawesome-reporter",
-    "reporterOptions": {
-        "reportDir": "output/results",
-        "overwrite": false,
-        "html": false,
-        "json": true
-    },
-    "screenshotsFolder": "output/screenshots",
-    "supportFile": "support/index.js",
-    "testFiles": "**/*.spec.*",
+    "screenshotsFolder": "cypress/screenshots",
+    "supportFile": "cypress/support/index.js",
+    "testFiles": "cypress/**/*.spec.*",
     "video": false,
-    "videosFolder": "output/videos"
+    "videosFolder": "cypress/videos"
 }

@@ -17,6 +17,9 @@
  *
  */
 
+/**
+ * Class containing Header DOM constants.
+ */
 export class HeaderDomConstants {
 
     /**

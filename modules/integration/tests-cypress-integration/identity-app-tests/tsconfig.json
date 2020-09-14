@@ -6,10 +6,14 @@
             "dom"
         ],
         "types": [
-            "cypress"
+            "cypress",
+            "node"
         ]
     },
     "include": [
-        "**/*.ts"
+        "cypress"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

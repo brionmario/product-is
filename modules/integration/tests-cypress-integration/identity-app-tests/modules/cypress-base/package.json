@@ -11,13 +11,23 @@
         "url": "git+https://github.com/brionmario/product-is.git"
     },
     "scripts": {
-        "test": "echo \"Error: run tests from root\" && exit 1"
+        "prebuild": "npm run clean",
+        "build": "npm run compile",
+        "clean": "rimraf ./dist",
+        "compile": "run-script-os",
+        "compile:win32": "..\\..\\node_modules\\.bin\\tsc -p tsconfig.json",
+        "compile:default": "../../node_modules/.bin/tsc -p tsconfig.json"
     },
     "bugs": {
         "url": "https://github.com/brionmario/product-is/issues"
     },
     "peerDependencies": {
+        "@types/node": "*",
         "cypress": "*",
         "typescript": "*"
+    },
+    "devDependencies": {
+        "rimraf": "^3.0.2",
+        "run-script-os": "^1.1.1"
     }
 }

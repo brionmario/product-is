@@ -17,6 +17,9 @@
  *
  */
 
+/**
+ * Class containing Server i.e. Identity Server Related constants.
+ */
 export class ServerConstants {
 
     /**
