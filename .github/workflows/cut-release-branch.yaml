@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      workflows: write
 
     steps:
       - name: Checkout repository
@@ -25,8 +26,12 @@ jobs:
 
       - name: Create and push release branch
         run: |
-          git fetch origin ${{ github.event.inputs.base_ref }}
-          git checkout -b ${{ github.event.inputs.release_branch }} origin/${{ github.event.inputs.base_ref }} || \
-          git checkout -b ${{ github.event.inputs.release_branch }} ${{ github.event.inputs.base_ref }}
+          git fetch origin ${{ github.event.inputs.base_ref }} || true
+          # Try to create branch from origin/<base_ref> if it exists, else from <base_ref> directly (for commit SHA)
+          if git show-ref --verify --quiet refs/remotes/origin/${{ github.event.inputs.base_ref }}; then
+            git checkout -b ${{ github.event.inputs.release_branch }} origin/${{ github.event.inputs.base_ref }}
+          else
+            git checkout -b ${{ github.event.inputs.release_branch }} ${{ github.event.inputs.base_ref }}
+          fi
 
           git push origin ${{ github.event.inputs.release_branch }}
