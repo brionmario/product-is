@@ -1,0 +1,38 @@
+# This workflow automatically creates a pull request to sync the release branch with master.
+name: Sync release branch with master
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - release-is-*
+
+jobs:
+  create-sync-pr:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create pull request to master
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BASE_BRANCH=master
+          HEAD_BRANCH=${{ github.event.pull_request.base.ref }}
+
+          # Only proceed if base branch is release-is-*
+          if [[ "$HEAD_BRANCH" == release-is-* ]]; then
+            PR_TITLE="Sync: $HEAD_BRANCH → $BASE_BRANCH"
+            PR_BODY="This PR syncs changes from \`$HEAD_BRANCH\` into \`$BASE_BRANCH\` after a merge."
+
+            gh pr create \
+              --base "$BASE_BRANCH" \
+              --head "$HEAD_BRANCH" \
+              --title "$PR_TITLE" \
+              --body "$PR_BODY" || echo "PR already exists or creation failed."
+          fi
