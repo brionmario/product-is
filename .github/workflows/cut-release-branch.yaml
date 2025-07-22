@@ -25,11 +25,18 @@ jobs:
 
       - name: Create and push release branch
         run: |
-          git fetch origin ${{ github.event.inputs.base_ref }} || true
-          # Try to create branch from origin/<base_ref> if it exists, else from <base_ref> directly (for commit SHA)
+          set -e
+          git fetch origin
+          # Check if base_ref is a remote branch or tag
           if git show-ref --verify --quiet refs/remotes/origin/${{ github.event.inputs.base_ref }}; then
             git checkout -b ${{ github.event.inputs.release_branch }} origin/${{ github.event.inputs.base_ref }}
+          elif git show-ref --verify --quiet refs/tags/${{ github.event.inputs.base_ref }}; then
+            git checkout -b ${{ github.event.inputs.release_branch }} refs/tags/${{ github.event.inputs.base_ref }}
           else
+            # Assume it's a commit SHA, fetch it as a temp ref if not present
+            if ! git cat-file -e ${{ github.event.inputs.base_ref }} 2>/dev/null; then
+              git fetch origin ${{ github.event.inputs.base_ref }}:refs/temp-branch-for-sha
+            fi
             git checkout -b ${{ github.event.inputs.release_branch }} ${{ github.event.inputs.base_ref }}
           fi
 
