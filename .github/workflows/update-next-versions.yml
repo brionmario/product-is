@@ -1,0 +1,51 @@
+name: Update Next Release Versions
+
+on:
+  schedule:
+    - cron: '30 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-next-versions:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+
+      - name: Pull latest changes
+        run: |
+          git pull origin master
+
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Update pom.xml with latest next releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: |
+          chmod +x ./.github/scripts/update-next-versions.sh
+          ./.github/scripts/update-next-versions.sh
+
+      - name: Update versions and commit changes
+        run: |
+          git config --global user.name 'jenkins-is-staging'
+          git config --global user.email 'jenkins-is-staging@wso2.com'
+          
+          # Check if there are any changes
+          if git diff --quiet HEAD pom.xml; then
+            echo "No version updates needed"
+            exit 0
+          fi
+          
+          # Commit and push changes directly to master
+          git add pom.xml
+          git commit -m "Update pom.xml with latest next release versions
+          
+          Automated update of version properties to their latest 'next' releases"
+          git push origin master
